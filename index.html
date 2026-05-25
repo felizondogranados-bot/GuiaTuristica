@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Turística Multimedia de Costa Rica</title>
+
+    <link rel="stylesheet" href="css/global.css">
+
+    <!-- Custom Elements -->
+    <script type="module" src="components/app-header.js"></script>
+    <script type="module" src="components/destino-card.js"></script>
+    <script type="module" src="components/destino-detalle.js"></script>
+    <script type="module" src="components/galeria-imagenes.js"></script>
+    <script type="module" src="components/audio-guia.js"></script>
+</head>
+
+<body>
+
+    <app-header active-region="Guanacaste"></app-header>
+
+    <main id="main-content">
+
+        <section class="catalogo-container">
+
+            <div class="catalogo-header">
+                <h1>Descubre los Tesoros de Costa Rica</h1>
+                <p>Explora los destinos turísticos más hermosos y cautivadores del país</p>
+            </div>
+
+            <div id="destinos-grid" class="destinos-grid">
+
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Cargando destinos...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <destino-detalle
+        id="detalle-destino"
+        visible="false">
+    </destino-detalle>
+
+    <script type="module">
+
+        // =========================
+        // VARIABLES GLOBALES
+        // =========================
+
+        let destinosGlobales = [];
+        let regionActual = 'Guanacaste';
+
+        const gridDestinos =
+            document.getElementById('destinos-grid');
+
+        const detalleDestino =
+            document.getElementById('detalle-destino');
+
+        // =========================
+        // CARGAR JSON
+        // =========================
+
+        async function cargarDestinos() {
+
+            try {
+
+                const response =
+                    await fetch('./data/destinos.json');
+
+                if (!response.ok) {
+                    throw new Error(
+                        'No se pudo cargar el JSON'
+                    );
+                }
+
+                destinosGlobales =
+                    await response.json();
+
+                console.log(destinosGlobales);
+
+                mostrarDestinosPorRegion(regionActual);
+
+            } catch (error) {
+
+                console.error(error);
+
+                gridDestinos.innerHTML = `
+                    <div class="error-message">
+                        <p>Error al cargar destinos</p>
+                    </div>
+                `;
+            }
+        }
+
+        // =========================
+        // MOSTRAR DESTINOS
+        // =========================
+
+        function mostrarDestinosPorRegion(region) {
+
+            gridDestinos.innerHTML = '';
+
+            const destinosFiltrados =
+                destinosGlobales.filter(
+                    destino => destino.region === region
+                );
+
+            if (destinosFiltrados.length === 0) {
+
+                gridDestinos.innerHTML = `
+                    <div class="no-destinos">
+                        <p>No hay destinos disponibles</p>
+                    </div>
+                `;
+
+                return;
+            }
+
+            destinosFiltrados.forEach(destino => {
+
+                const card =
+                    document.createElement('destino-card');
+
+                card.setDestino(destino);
+
+                card.addEventListener(
+                    'destino-selected',
+                    (e) => {
+
+                        mostrarDetalle(
+                            e.detail.destino
+                        );
+
+                    }
+                );
+
+                gridDestinos.appendChild(card);
+
+            });
+        }
+
+        // =========================
+        // MOSTRAR DETALLE
+        // =========================
+
+        function mostrarDetalle(destino) {
+
+            detalleDestino.setDestino(destino);
+
+            detalleDestino.setAttribute(
+                'visible',
+                'true'
+            );
+
+            document.body.classList.add(
+                'modal-open'
+            );
+        }
+
+        // =========================
+        // CERRAR DETALLE
+        // =========================
+
+        detalleDestino.addEventListener(
+            'destino-cerrado',
+            () => {
+
+                detalleDestino.setAttribute(
+                    'visible',
+                    'false'
+                );
+
+                document.body.classList.remove(
+                    'modal-open'
+                );
+            }
+        );
+
+        // =========================
+        // CAMBIO DE REGIÓN
+        // =========================
+
+        const header =
+            document.querySelector('app-header');
+
+        header.addEventListener(
+            'region-selected',
+            (e) => {
+
+                regionActual =
+                    e.detail.region;
+
+                mostrarDestinosPorRegion(
+                    regionActual
+                );
+            }
+        );
+
+        // =========================
+        // INICIAR
+        // =========================
+
+        cargarDestinos();
+
+    </script>
+
+</body>
+</html>

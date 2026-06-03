@@ -14,9 +14,21 @@ class DestinoDetalle extends HTMLElement {
 
     // Callback cuando cambian los atributos
     attributeChangedCallback(name, oldVal, newVal) {
-        if (oldVal !== newVal && name === 'visible') {
-            const visible = newVal === 'true';
-            this.shadowRoot.querySelector('.detalle-container').style.display = visible ? 'block' : 'none';
+
+        if (name === 'visible') {
+
+            const container =
+                this.shadowRoot.querySelector(
+                    '.detalle-container'
+                );
+
+            if (!container) return;
+
+            if (newVal === 'true') {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
         }
     }
 
@@ -28,9 +40,25 @@ class DestinoDetalle extends HTMLElement {
 
     // Método para establecer datos completos del destino
     setDestino(destino) {
+
         this._destino = destino;
-        this.setAttribute('destino-id', destino.id);
+
+        this.setAttribute(
+            'destino-id',
+            destino.id
+        );
+
         this.render();
+
+        const container =
+            this.shadowRoot.querySelector(
+                '.detalle-container'
+            );
+
+        if (container) {
+            container.style.display = 'block';
+        }
+
         this.setupEventListeners();
     }
 
@@ -50,6 +78,16 @@ class DestinoDetalle extends HTMLElement {
         const btnVideo = this.shadowRoot.querySelector('.btn-video');
         if (btnVideo) {
             btnVideo.addEventListener('click', () => this.reproducirVideo());
+        }
+
+        // Cerrar modal al hacer click en el fondo (overlay)
+        const container = this.shadowRoot.querySelector('.detalle-container');
+        if (container) {
+            container.addEventListener('click', (e) => {
+                if (e.target === container) {
+                    this.cerrar();
+                }
+            });
         }
     }
 
@@ -94,7 +132,7 @@ class DestinoDetalle extends HTMLElement {
             .map(act => `<span class="actividad-badge">${act}</span>`)
             .join('');
 
-        const imagenesTotales = galeria.length > 0 
+        const imagenesTotales = galeria.length > 0
             ? galeria.map(img => `assets/img/${img}`)
             : [imagen_portada];
 
@@ -106,16 +144,27 @@ class DestinoDetalle extends HTMLElement {
                 }
 
                 .detalle-container {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    background: rgba(0, 0, 0, 0.5);
-                    display: none;
-                    z-index: 1000;
-                    overflow-y: auto;
-                    animation: fadeIn 0.3s ease;
+                 position: fixed;
+                 top: 0;
+                 left: 0;
+                 right: 0;
+                 bottom: 0;
+                 background: rgba(0, 0, 0, 0.5);
+                 display: block;
+                 z-index: 10000;
+                 overflow-y: auto;
+                 padding: 2rem;
+}
+
+                .detalle-modal {
+                    background: white;
+                    margin: 2rem auto;
+                    border-radius: 12px;
+                    max-width: 900px;
+                    overflow: hidden;
+                    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+                    animation: slideUp 0.4s ease;
+                    pointer-events: auto;
                 }
 
                 @keyframes fadeIn {
@@ -277,6 +326,10 @@ class DestinoDetalle extends HTMLElement {
 
                 .audio-section {
                     margin-bottom: 2rem;
+                    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    border-left: 4px solid #667eea;
                 }
 
                 .coordenadas {
@@ -368,9 +421,15 @@ class DestinoDetalle extends HTMLElement {
 
                     <div class="detalle-body">
                         <!-- Sección Descripción -->
+                        <!-- Sección Descripción -->
                         <div class="seccion">
-                            <h2 class="seccion-titulo">📍 Descripción</h2>
-                            <p class="descripcion">${descripcion}</p>
+                        <h2 class="seccion-titulo">
+                        🌴 Acerca de ${nombre}
+                        </h2>
+
+                        <p class="descripcion">
+                        ${descripcion}
+                        </p>
                         </div>
 
                         <!-- Sección Actividades -->
@@ -392,14 +451,24 @@ class DestinoDetalle extends HTMLElement {
                         ` : ''}
 
                         <!-- Sección Audio -->
-                        ${audio ? `
                         <div class="seccion audio-section">
-                            <audio-guia 
-                                titulo="Guía de Audio"
-                                descripcion="Escucha la descripción completa de este destino"
-                                src="${audio}"></audio-guia>
-                        </div>
-                        ` : ''}
+
+                        <h2 class="seccion-titulo">
+                        🎧 Guía Turística
+                        </h2>
+
+                     <p class="descripcion" style="margin-bottom: 1rem;">
+                        Presiona reproducir para escuchar la descripción de este destino.
+                      </p>
+
+                     <audio-guia
+                     titulo="Narración del Destino"
+                     descripcion="Audio generado automáticamente"
+                     texto="${descripcion}">
+                      </audio-guia>
+
+                     </div>
+                       
 
                         <!-- Sección Ubicación -->
                         <div class="seccion">

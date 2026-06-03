@@ -246,9 +246,11 @@ a:hover {
    ======================================== */
 
 /* Ocultar scrollbar mientras se muestra modal */
+/* Permitir scroll aunque el modal esté abierto */
 body.modal-open {
-    overflow: hidden;
+    overflow-y: auto;
 }
+
 
 /* ========================================
    UTILIDADES

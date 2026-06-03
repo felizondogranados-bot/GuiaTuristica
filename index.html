@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,9 +42,7 @@
 
     </main>
 
-    <destino-detalle
-        id="detalle-destino"
-        visible="false">
+    <destino-detalle id="detalle-destino" visible="false">
     </destino-detalle>
 
     <script type="module">
@@ -150,16 +149,16 @@
 
         function mostrarDetalle(destino) {
 
+            console.log("Abriendo:", destino);
+
             detalleDestino.setDestino(destino);
 
-            detalleDestino.setAttribute(
-                'visible',
-                'true'
-            );
-
-            document.body.classList.add(
-                'modal-open'
-            );
+            setTimeout(() => {
+                detalleDestino.setAttribute(
+                    'visible',
+                    'true'
+                );
+            }, 50);
         }
 
         // =========================
@@ -173,10 +172,6 @@
                 detalleDestino.setAttribute(
                     'visible',
                     'false'
-                );
-
-                document.body.classList.remove(
-                    'modal-open'
                 );
             }
         );
@@ -210,4 +205,5 @@
     </script>
 
 </body>
+
 </html>

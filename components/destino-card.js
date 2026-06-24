@@ -22,10 +22,7 @@ class DestinoCard extends HTMLElement {
     // Callback cuando el elemento se inserta en el DOM
     connectedCallback() {
         this.render();
-        this.setupEventListeners();
     }
-
-    // Método para establecer datos completos del destino
     setDestino(destino) {
         this._destino = destino;
         this.setAttribute('destino-id', destino.id);
@@ -76,39 +73,65 @@ class DestinoCard extends HTMLElement {
         const imagen = this.getAttribute('imagen') || 'assets/img/default.jpg';
         const descripcion = this.getAttribute('descripcion') || '';
 
-        this.shadowRoot.innerHTML = `
-            <style>
+        this.shadowRoot.innerHTML = `            <style>
                 :host {
                     display: inline-block;
                     width: 100%;
+                    height: 100%;
                 }
 
                 .card {
                     background: white;
-                    border-radius: 12px;
+                    border-radius: 16px;
                     overflow: hidden;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
                     cursor: pointer;
-                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                     display: flex;
                     flex-direction: column;
                     height: 100%;
+                    position: relative;
+                    border: 1px solid rgba(0, 0, 0, 0.03);
+                    will-change: transform, box-shadow;
                 }
 
                 .card:hover {
-                    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+                }
+
+                .image-container {
+                    position: relative;
+                    width: 100%;
+                    height: 220px;
+                    overflow: hidden;
                 }
 
                 .card-image {
                     width: 100%;
-                    height: 220px;
+                    height: 100%;
                     object-fit: cover;
-                    transition: transform 0.4s ease;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                 .card:hover .card-image {
                     transform: scale(1.05);
+                }
+
+                .region-badge {
+                    position: absolute;
+                    top: 15px;
+                    left: 15px;
+                    z-index: 5;
+                    color: white;
+                    padding: 0.45rem 1rem;
+                    border-radius: 20px;
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    font-size: 0.7rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    backdrop-filter: blur(4px);
                 }
 
                 .card-content {
@@ -118,92 +141,142 @@ class DestinoCard extends HTMLElement {
                     flex-direction: column;
                 }
 
-                .region-badge {
-                    display: inline-block;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    padding: 0.4rem 0.8rem;
-                    border-radius: 20px;
-                    font-size: 0.75rem;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    margin-bottom: 0.8rem;
-                    width: fit-content;
-                }
-
                 .card-title {
-                    font-size: 1.3rem;
-                    font-weight: 800;
-                    color: #2c3e50;
-                    margin-bottom: 0.8rem;
-                    letter-spacing: 0.3px;
+                    font-family: 'Playfair Display', Georgia, serif;
+                    font-size: 1.45rem;
+                    font-weight: 700;
+                    color: #1f2937;
+                    margin-bottom: 0.6rem;
+                    line-height: 1.25;
                 }
 
                 .card-description {
-                    font-size: 0.95rem;
-                    color: #7f8c8d;
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    font-size: 0.9rem;
+                    color: #4b5563;
                     line-height: 1.5;
-                    margin-bottom: 1rem;
+                    margin-bottom: 1.2rem;
                     flex-grow: 1;
+                    /* Line clamp */
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
                 }
 
                 .card-footer {
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: flex-end;
                     align-items: center;
-                    margin-top: 1rem;
+                    margin-top: auto;
                     padding-top: 1rem;
-                    border-top: 1px solid #ecf0f1;
+                    border-top: 1px solid rgba(0, 0, 0, 0.05);
                 }
 
                 .cta-button {
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
                     border: none;
-                    padding: 0.7rem 1.5rem;
+                    padding: 0.65rem 1.4rem;
                     border-radius: 25px;
-                    font-size: 0.9rem;
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    font-size: 0.85rem;
                     font-weight: 700;
                     cursor: pointer;
-                    transition: all 0.3s ease;
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
                     text-transform: uppercase;
                     letter-spacing: 0.5px;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
                 }
 
-                .cta-button:hover {
-                    transform: translateX(2px);
-                    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+                .cta-button .icon {
+                    font-size: 1.1rem;
+                    transition: transform 0.3s ease;
                 }
 
-                .icon {
-                    font-size: 1.2rem;
+                .cta-button:hover .icon {
+                    transform: translateX(3px);
+                }
+
+                /* Colores por Región */
+                :host([region="Guanacaste"]) .region-badge {
+                    background: #e5b842;
+                    color: #1c150c;
+                }
+                :host([region="Guanacaste"]) .cta-button {
+                    background: linear-gradient(135deg, #e5b842, #c69c36);
+                    color: #1c150c;
+                    box-shadow: 0 4px 12px rgba(229, 184, 66, 0.25);
+                }
+                :host([region="Guanacaste"]) .cta-button:hover {
+                    box-shadow: 0 6px 16px rgba(229, 184, 66, 0.4);
+                }
+
+                :host([region="Caribe"]) .region-badge {
+                    background: #d97724;
+                    color: white;
+                }
+                :host([region="Caribe"]) .cta-button {
+                    background: linear-gradient(135deg, #d97724, #e65c00);
+                    color: white;
+                    box-shadow: 0 4px 12px rgba(217, 119, 36, 0.25);
+                }
+                :host([region="Caribe"]) .cta-button:hover {
+                    box-shadow: 0 6px 16px rgba(217, 119, 36, 0.4);
+                }
+
+                :host([region="Central"]) .region-badge {
+                    background: #2a9d8f;
+                    color: white;
+                }
+                :host([region="Central"]) .cta-button {
+                    background: linear-gradient(135deg, #2a9d8f, #2d6a4f);
+                    color: white;
+                    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.25);
+                }
+                :host([region="Central"]) .cta-button:hover {
+                    box-shadow: 0 6px 16px rgba(42, 157, 143, 0.4);
+                }
+
+                :host([region="Pacífico Sur"]) .region-badge {
+                    background: #3a86c8;
+                    color: white;
+                }
+                :host([region="Pacífico Sur"]) .cta-button {
+                    background: linear-gradient(135deg, #3a86c8, #0077b6);
+                    color: white;
+                    box-shadow: 0 4px 12px rgba(58, 134, 200, 0.25);
+                }
+                :host([region="Pacífico Sur"]) .cta-button:hover {
+                    box-shadow: 0 6px 16px rgba(58, 134, 200, 0.4);
                 }
 
                 @media (max-width: 768px) {
-                    .card-image {
-                        height: 180px;
+                    .image-container {
+                        height: 190px;
                     }
 
                     .card-title {
-                        font-size: 1.1rem;
+                        font-size: 1.25rem;
                     }
 
                     .card-description {
-                        font-size: 0.9rem;
+                        font-size: 0.85rem;
                     }
                 }
             </style>
 
             <div class="card">
-                <img src="${imagen}" alt="${nombre}" class="card-image">
-                <div class="card-content">
+                <div class="image-container">
                     <span class="region-badge">${region}</span>
+                    <img src="${imagen}" alt="${nombre}" class="card-image">
+                </div>
+                <div class="card-content">
                     <h3 class="card-title">${nombre}</h3>
                     <p class="card-description">${descripcion}</p>
                     <div class="card-footer">
                         <button class="cta-button">
-                            <span class="icon">→</span> Explorar
+                            Explorar <span class="icon">→</span>
                         </button>
                     </div>
                 </div>

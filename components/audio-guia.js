@@ -71,78 +71,99 @@ class AudioGuia extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
         <style>
-
-            :host{
-                display:block;
-                width:100%;
+            :host {
+                display: block;
+                width: 100%;
             }
 
-            .contenedor{
-                background:linear-gradient(
-                    135deg,
-                    #667eea 0%,
-                    #764ba2 100%
-                );
-                padding:20px;
-                border-radius:12px;
-                color:white;
+            .contenedor {
+                background: linear-gradient(135deg, #2d6a4f 0%, #0077b6 100%);
+                padding: 1.5rem;
+                border-radius: 16px;
+                color: white;
+                box-shadow: 0 10px 25px rgba(45, 106, 79, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.05);
             }
 
-            h3{
-                margin:0 0 10px 0;
+            h3 {
+                margin: 0 0 8px 0;
+                font-family: 'Playfair Display', Georgia, serif;
+                font-size: 1.25rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                letter-spacing: 0.3px;
             }
 
-            p{
-                margin:0 0 20px 0;
-                opacity:0.9;
+            p {
+                margin: 0 0 1.2rem 0;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-size: 0.85rem;
+                opacity: 0.85;
+                line-height: 1.4;
             }
 
-            .controles{
-                display:flex;
-                gap:10px;
+            .controles {
+                display: flex;
+                gap: 12px;
             }
 
-            button{
-                border:none;
-                padding:12px 20px;
-                border-radius:8px;
-                cursor:pointer;
-                font-weight:bold;
+            button {
+                border: none;
+                padding: 10px 20px;
+                border-radius: 30px;
+                cursor: pointer;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-size: 0.8rem;
+                font-weight: 700;
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
             }
 
-            .btn-play{
-                background:white;
-                color:#333;
+            .btn-play {
+                background: white;
+                color: #2d6a4f;
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
             }
 
-            .btn-stop{
-                background:#ff4d4d;
-                color:white;
+            .btn-play:hover {
+                background: #f4f1ea;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(255, 255, 255, 0.25);
             }
 
+            .btn-stop {
+                background: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: white;
+            }
+
+            .btn-stop:hover {
+                background: #ef4444;
+                border-color: #ef4444;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+            }
         </style>
 
         <div class="contenedor">
-
             <h3>🎧 ${titulo}</h3>
-
             <p>${descripcion}</p>
-
             <div class="controles">
-
                 <button class="btn-play">
                     ▶ Reproducir
                 </button>
-
                 <button class="btn-stop">
                     ⏹ Detener
                 </button>
-
             </div>
-
         </div>
         `;
-    }
 }
 
 customElements.define(

@@ -33,7 +33,6 @@ class GaleriaImagenes extends HTMLElement {
     // Callback cuando el elemento se inserta en el DOM
     connectedCallback() {
         this.render();
-        this.setupEventListeners();
     }
 
     // Método para establecer imágenes
@@ -41,8 +40,6 @@ class GaleriaImagenes extends HTMLElement {
         this._imagenes = imagenes;
         this._indiceActual = 0;
         this.setAttribute('imagenes', JSON.stringify(imagenes));
-        this.render();
-        this.setupEventListeners();
     }
 
     // Obtener imágenes
@@ -146,28 +143,31 @@ class GaleriaImagenes extends HTMLElement {
 
                 .galeria-container {
                     background: white;
-                    border-radius: 12px;
+                    border-radius: 16px;
                     overflow: hidden;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+                    border: 1px solid rgba(0, 0, 0, 0.04);
                 }
 
                 .galeria-header {
-                    padding: 1.2rem;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
+                    padding: 1.2rem 1.5rem;
+                    background: #f4f1ea;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
                 }
 
                 .galeria-header h3 {
                     margin: 0;
-                    font-size: 1.2rem;
+                    font-family: 'Playfair Display', Georgia, serif;
+                    font-size: 1.25rem;
                     font-weight: 700;
+                    color: #1f2937;
                 }
 
                 .galeria-content {
                     position: relative;
                     width: 100%;
                     height: 400px;
-                    background: #f8f9fa;
+                    background: #f4f1ea;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -178,94 +178,116 @@ class GaleriaImagenes extends HTMLElement {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    transition: opacity 0.4s ease;
+                    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                     opacity: 1;
                 }
 
                 .controles {
                     position: absolute;
                     bottom: 20px;
-                    left: 50%;
-                    transform: translateX(-50%);
+                    left: 0;
+                    right: 0;
                     display: flex;
-                    gap: 12px;
+                    justify-content: space-between;
                     align-items: center;
+                    padding: 0 20px;
                     z-index: 10;
+                    pointer-events: none;
                 }
 
                 .btn-anterior,
                 .btn-siguiente {
-                    width: 40px;
-                    height: 40px;
-                    border: none;
+                    width: 44px;
+                    height: 44px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
                     border-radius: 50%;
-                    background: rgba(0, 0, 0, 0.5);
+                    background: rgba(15, 23, 42, 0.4);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
                     color: white;
                     cursor: pointer;
-                    font-size: 1.2rem;
-                    transition: all 0.3s ease;
+                    font-size: 1rem;
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    pointer-events: auto;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 }
 
                 .btn-anterior:hover,
                 .btn-siguiente:hover {
-                    background: rgba(0, 0, 0, 0.8);
-                    transform: scale(1.1);
+                    background: rgba(15, 23, 42, 0.6);
+                    border-color: rgba(255, 255, 255, 0.4);
+                    transform: scale(1.08);
                 }
 
                 .puntos {
                     display: flex;
                     gap: 8px;
+                    background: rgba(15, 23, 42, 0.45);
+                    padding: 6px 12px;
+                    border-radius: 20px;
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                    pointer-events: auto;
+                    align-items: center;
                 }
 
                 .punto {
-                    width: 10px;
-                    height: 10px;
+                    width: 8px;
+                    height: 8px;
                     border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.4);
+                    background: rgba(255, 255, 255, 0.45);
                     cursor: pointer;
-                    transition: all 0.3s ease;
-                    border: 1px solid rgba(255, 255, 255, 0.6);
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    border: none;
                 }
 
                 .punto:hover {
-                    background: rgba(255, 255, 255, 0.6);
+                    background: rgba(255, 255, 255, 0.8);
                 }
 
                 .punto.activo {
+                    width: 22px;
+                    border-radius: 4px;
                     background: white;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
                 }
 
                 .contador {
                     color: white;
-                    font-size: 0.9rem;
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    font-size: 0.75rem;
                     font-weight: 700;
-                    background: rgba(0, 0, 0, 0.5);
-                    padding: 0.4rem 0.8rem;
+                    background: rgba(15, 23, 42, 0.55);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                    padding: 0.45rem 0.85rem;
                     border-radius: 20px;
+                    border: 1px solid rgba(255, 255, 255, 0.15);
                 }
 
                 .galeria-footer {
                     padding: 1rem;
-                    background: #f8f9fa;
+                    background: #faf9f6;
                     text-align: center;
-                    font-size: 0.9rem;
-                    color: #7f8c8d;
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    font-size: 0.85rem;
+                    color: #4b5563;
+                    border-top: 1px solid rgba(0, 0, 0, 0.04);
                 }
 
                 @media (max-width: 768px) {
                     .galeria-content {
-                        height: 250px;
+                        height: 280px;
                     }
 
                     .btn-anterior,
                     .btn-siguiente {
-                        width: 35px;
-                        height: 35px;
-                        font-size: 1rem;
+                        width: 38px;
+                        height: 38px;
+                        font-size: 0.85rem;
                     }
                 }
             </style>

@@ -7,28 +7,28 @@ class AppHeader extends HTMLElement {
         // temas por región 
         this.themes = {
             'Guanacaste': {
-                '--primary-color': '#f1c40f', // Oro/Sol
-                '--bg-color': '#3e2c00',      // Tierra oscura
-                '--text-color': '#000000',    // Contraste oscuro
-                '--accent': '#f39c12'
+                '--primary-color': '#e5b842', // Dorado elegante
+                '--bg-color': '#1c150c',      // Bronce profundo
+                '--text-color': '#1c150c',    // Contraste oscuro
+                '--accent': '#c69c36'         // Dorado oscuro
             },
             'Caribe': {
-                '--primary-color': '#e67e22', // Atardecer/Fuego
-                '--bg-color': '#2c0300',      // Madera profunda
+                '--primary-color': '#d97724', // Atardecer
+                '--bg-color': '#24110f',      // Madera profunda
                 '--text-color': '#ffffff',
-                '--accent': '#d35400'
+                '--accent': '#e65c00'
             },
             'Central': {
-                '--primary-color': '#2ecc71', // Verde Bosque/Vida
-                '--bg-color': '#062c1d',      // Musgo oscuro
+                '--primary-color': '#2a9d8f', // Verde naturaleza
+                '--bg-color': '#082117',      // Verde profundo
                 '--text-color': '#ffffff',
-                '--accent': '#27ae60'
+                '--accent': '#2d6a4f'
             },
             'Pacífico Sur': {
-                '--primary-color': '#3498db', // Océano
-                '--bg-color': '#001f3f',      // Azul profundo
+                '--primary-color': '#3a86c8', // Azul océano
+                '--bg-color': '#0a1c2a',      // Azul profundo
                 '--text-color': '#ffffff',
-                '--accent': '#2980b9'
+                '--accent': '#0077b6'
             }
         };
     }
@@ -89,34 +89,61 @@ class AppHeader extends HTMLElement {
             :host {
                 display: block;
                 width: 100%;
-                font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-                transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
             header {
-                background: var(--bg-color);
+                background: color-mix(in srgb, var(--bg-color) 88%, transparent);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
                 color: white;
-                padding: 1.2rem 5%;
+                padding: 1rem 5%;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-                border-bottom: 4px solid var(--primary-color);
-                transition: background 0.6s ease, border-color 0.6s ease;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+                border-bottom: 2px solid var(--primary-color);
+                transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
             .logo-container {
                 display: flex;
                 align-items: center;
-                gap: 12px;
+                gap: 10px;
+                cursor: pointer;
+            }
+
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+                color: var(--primary-color);
+                transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease;
+            }
+
+            .logo-container:hover .logo-icon {
+                transform: rotate(360deg);
             }
 
             .logo-text {
-                font-size: 1.4rem;
-                font-weight: 800;
-                letter-spacing: 1.5px;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-size: 1.3rem;
+                font-weight: 700;
+                letter-spacing: 0.5px;
                 text-transform: uppercase;
                 color: #ffffff;
+            }
+
+            .logo-text span {
+                font-family: 'Playfair Display', Georgia, serif;
+                font-style: italic;
+                font-weight: 600;
+                color: var(--primary-color);
+                text-transform: none;
+                letter-spacing: 0;
             }
 
             nav {
@@ -125,29 +152,32 @@ class AppHeader extends HTMLElement {
             }
 
             button {
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: #ecf0f1;
-                padding: 10px 22px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: rgba(255, 255, 255, 0.85);
+                padding: 8px 20px;
                 border-radius: 30px;
-                font-size: 0.9rem;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-size: 0.85rem;
                 font-weight: 600;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                backdrop-filter: blur(5px);
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                position: relative;
             }
 
             button:hover {
-                background: rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(255, 255, 255, 0.25);
+                color: #ffffff;
                 transform: translateY(-2px);
-                border-color: var(--primary-color);
             }
 
             button.active {
                 background: var(--primary-color);
                 color: var(--text-color);
                 border-color: var(--primary-color);
-                box-shadow: 0 0 15px var(--primary-color);
+                box-shadow: 0 4px 15px color-mix(in srgb, var(--primary-color) 40%, transparent);
+                transform: translateY(-1px);
             }
 
             @media (max-width: 768px) {
@@ -159,9 +189,10 @@ class AppHeader extends HTMLElement {
                 nav {
                     flex-wrap: wrap;
                     justify-content: center;
+                    gap: 8px;
                 }
                 button {
-                    padding: 8px 15px;
+                    padding: 6px 14px;
                     font-size: 0.8rem;
                 }
             }
@@ -169,7 +200,11 @@ class AppHeader extends HTMLElement {
 
         <header>
             <div class="logo-container">
-                <span class="logo-text">Costa Rica Explore</span>
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                </svg>
+                <span class="logo-text">Costa Rica <span>Explore</span></span>
             </div>
             <nav>
                 ${regiones.map(reg => `

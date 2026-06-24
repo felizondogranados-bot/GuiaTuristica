@@ -6,7 +6,7 @@ class AudioGuia extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['texto', 'titulo', 'descripcion'];
+        return ['texto', 'titulo', 'descripcion', 'region'];
     }
 
     connectedCallback() {
@@ -137,6 +137,63 @@ class AudioGuia extends HTMLElement {
                 box-shadow: 0 6px 16px rgba(255, 255, 255, 0.25);
             }
 
+            /* Temas Regionales para la Tarjeta de Audio-Guía (Contenedor y Botón) */
+            :host([region="Guanacaste"]) .contenedor {
+                background: linear-gradient(135deg, #1c150c 0%, #c69c36 100%);
+                box-shadow: 0 10px 25px rgba(198, 156, 54, 0.15);
+            }
+            :host([region="Guanacaste"]) .btn-play {
+                background: white;
+                color: #1c150c;
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+            }
+            :host([region="Guanacaste"]) .btn-play:hover {
+                background: #f4f1ea;
+                box-shadow: 0 6px 16px rgba(255, 255, 255, 0.35);
+            }
+
+            :host([region="Caribe"]) .contenedor {
+                background: linear-gradient(135deg, #24110f 0%, #d97724 100%);
+                box-shadow: 0 10px 25px rgba(217, 119, 36, 0.15);
+            }
+            :host([region="Caribe"]) .btn-play {
+                background: white;
+                color: #d97724;
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+            }
+            :host([region="Caribe"]) .btn-play:hover {
+                background: #f4f1ea;
+                box-shadow: 0 6px 16px rgba(255, 255, 255, 0.35);
+            }
+
+            :host([region="Central"]) .contenedor {
+                background: linear-gradient(135deg, #082117 0%, #2a9d8f 100%);
+                box-shadow: 0 10px 25px rgba(42, 157, 143, 0.15);
+            }
+            :host([region="Central"]) .btn-play {
+                background: white;
+                color: #2a9d8f;
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+            }
+            :host([region="Central"]) .btn-play:hover {
+                background: #f4f1ea;
+                box-shadow: 0 6px 16px rgba(255, 255, 255, 0.35);
+            }
+
+            :host([region="Pacífico Sur"]) .contenedor {
+                background: linear-gradient(135deg, #0a1c2a 0%, #3a86c8 100%);
+                box-shadow: 0 10px 25px rgba(58, 134, 200, 0.15);
+            }
+            :host([region="Pacífico Sur"]) .btn-play {
+                background: white;
+                color: #3a86c8;
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+            }
+            :host([region="Pacífico Sur"]) .btn-play:hover {
+                background: #f4f1ea;
+                box-shadow: 0 6px 16px rgba(255, 255, 255, 0.35);
+            }
+
             .btn-stop {
                 background: rgba(255, 255, 255, 0.15);
                 border: 1px solid rgba(255, 255, 255, 0.2);
@@ -164,6 +221,7 @@ class AudioGuia extends HTMLElement {
             </div>
         </div>
         `;
+    }
 }
 
 customElements.define(

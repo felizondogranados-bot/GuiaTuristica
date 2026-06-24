@@ -562,7 +562,8 @@ class DestinoDetalle extends HTMLElement {
                                 <audio-guia
                                     titulo="Narración del Destino"
                                     descripcion="Audio generado por voz"
-                                    texto="${descripcion}">
+                                    texto="${descripcion}"
+                                    region="${region}">
                                 </audio-guia>
                             </div>
 

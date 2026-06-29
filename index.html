@@ -4,7 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Turística Multimedia de Costa Rica</title>
+    <title>Guía Turística Multimedia de Costa Rica • Pura Vida</title>
+
+    <!-- Inicialización inmediata de tema para evitar FOUC -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('guia-turistica-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 
     <link rel="stylesheet" href="css/global.css">
     <link rel="icon" href="data:,">
@@ -20,6 +30,13 @@
 
 <body>
 
+    <!-- Canvas de Fondo Mágico Animado impulsado por Scroll -->
+    <div class="magic-scroll-bg">
+        <div class="scroll-orb scroll-orb-1"></div>
+        <div class="scroll-orb scroll-orb-2"></div>
+        <div class="scroll-orb scroll-orb-3"></div>
+    </div>
+
     <app-header active-region="Guanacaste"></app-header>
 
     <main id="main-content">
@@ -27,8 +44,11 @@
         <section class="catalogo-container">
 
             <div class="catalogo-header">
-                <h1>Descubre los Tesoros de Costa Rica</h1>
-                <p>Explora los destinos turísticos más hermosos y cautivadores del país</p>
+                <div class="badge-pura-vida">
+                    <span>🌿</span> Guía Turística Multimedia • Viví la Experiencia Pura Vida
+                </div>
+                <h1>Descubrí los Tesoros Naturales de Costa Rica</h1>
+                <p>Explorá Costa Rica a tu ritmo. Playas paradisíacas, volcanes imponentes, biodiversidad exuberante y cultura viva en un solo recorrido. Seleccioná una región en el mapa o menú y descubrí sus maravillas.</p>
             </div>
 
             <mapa-costa-rica active-region="Guanacaste"></mapa-costa-rica>
@@ -37,7 +57,7 @@
 
                 <div class="loading">
                     <div class="spinner"></div>
-                    <p>Cargando destinos...</p>
+                    <p>Cargando los tesoros de Costa Rica...</p>
                 </div>
 
             </div>
@@ -52,7 +72,32 @@
     <script type="module">
 
         // =========================
-        // VARIABLES GLOBALES
+        // ANIMACIÓN MÁGICA DE SCROLL (TikTok Vibe)
+        // =========================
+        let ticking = false;
+
+        function updateScrollMagic() {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
+            
+            document.documentElement.style.setProperty('--scroll-progress', scrollPercent.toFixed(3));
+            document.documentElement.style.setProperty('--scroll-y', `${window.scrollY.toFixed(0)}px`);
+            
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScrollMagic);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Ejecución inicial
+        updateScrollMagic();
+
+        // =========================
+        // VARIABLES GLOBALES DE LA APP
         // =========================
 
         let destinosGlobales = [];
@@ -90,7 +135,7 @@
                 destinosGlobales =
                     await response.json();
 
-                console.log(destinosGlobales);
+                console.log("Destinos cargados correctamente:", destinosGlobales);
 
                 mostrarDestinosPorRegion(regionActual);
 
@@ -123,19 +168,20 @@
 
                 gridDestinos.innerHTML = `
                     <div class="no-destinos">
-                        <p>No hay destinos disponibles</p>
+                        <p>No hay destinos disponibles para la región "${region}"</p>
                     </div>
                 `;
 
                 return;
             }
 
-            destinosFiltrados.forEach(destino => {
+            destinosFiltrados.forEach((destino, index) => {
 
                 const card =
                     document.createElement('destino-card');
 
                 card.setDestino(destino);
+                card.style.animationDelay = `${index * 0.1}s`;
 
                 card.addEventListener(
                     'destino-selected',
@@ -159,7 +205,7 @@
 
         function mostrarDetalle(destino) {
 
-            console.log("Abriendo:", destino);
+            console.log("Abriendo detalle de:", destino.nombre);
 
             detalleDestino.setDestino(destino);
 

@@ -7,22 +7,20 @@ class DestinoCard extends HTMLElement {
         this._destino = null;
     }
 
-    // Atributos observados
     static get observedAttributes() {
         return ['destino-id', 'nombre', 'region', 'imagen', 'descripcion'];
     }
 
-    // Callback cuando cambian los atributos
     attributeChangedCallback(name, oldVal, newVal) {
         if (oldVal !== newVal && this.isConnected) {
             this.render();
         }
     }
 
-    // Callback cuando el elemento se inserta en el DOM
     connectedCallback() {
         this.render();
     }
+
     setDestino(destino) {
         this._destino = destino;
         this.setAttribute('destino-id', destino.id);
@@ -33,29 +31,17 @@ class DestinoCard extends HTMLElement {
         this.render();
     }
 
-    // Obtener los datos del destino
     getDestino() {
         return this._destino;
     }
 
-    // Configurar eventos de la tarjeta
     setupEventListeners() {
         const card = this.shadowRoot.querySelector('.card');
         if (card) {
             card.addEventListener('click', () => this.handleCardClick());
-            
-            // Efecto hover
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-            });
         }
     }
 
-    // Emitir evento cuando se hace clic en la tarjeta
     handleCardClick() {
         this.dispatchEvent(new CustomEvent('destino-selected', {
             detail: { 
@@ -66,43 +52,66 @@ class DestinoCard extends HTMLElement {
         }));
     }
 
-    // Renderizar la tarjeta
     render() {
         const nombre = this.getAttribute('nombre') || 'Destino';
         const region = this.getAttribute('region') || 'Costa Rica';
         const imagen = this.getAttribute('imagen') || 'assets/img/default.jpg';
         const descripcion = this.getAttribute('descripcion') || '';
 
-        this.shadowRoot.innerHTML = `            <style>
+        this.shadowRoot.innerHTML = `
+            <style>
                 :host {
-                    display: inline-block;
+                    display: block;
                     width: 100%;
                     height: 100%;
+                    animation: cardFadeSlide 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+                }
+
+                @keyframes cardFadeSlide {
+                    from {
+                        opacity: 0;
+                        transform: translateY(24px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
                 }
 
                 .card {
-                    background: white;
-                    border-radius: 16px;
+                    background: var(--card-bg, #ffffff);
+                    border-radius: 22px;
                     overflow: hidden;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+                    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
                     cursor: pointer;
-                    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease, border-color 0.4s ease;
                     display: flex;
                     flex-direction: column;
                     height: 100%;
                     position: relative;
-                    border: 1px solid rgba(0, 0, 0, 0.03);
+                    border: 1px solid rgba(15, 23, 42, 0.08);
                     will-change: transform, box-shadow;
                 }
 
+                :host-context([data-theme="dark"]) .card {
+                    background: #142622;
+                    border-color: rgba(255, 255, 255, 0.08);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+                }
+
                 .card:hover {
-                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+                    transform: translateY(-8px);
+                    box-shadow: 0 22px 50px rgba(15, 23, 42, 0.14);
+                }
+
+                :host-context([data-theme="dark"]) .card:hover {
+                    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55);
                 }
 
                 .image-container {
                     position: relative;
                     width: 100%;
-                    height: 220px;
+                    height: 225px;
                     overflow: hidden;
                 }
 
@@ -114,7 +123,7 @@ class DestinoCard extends HTMLElement {
                 }
 
                 .card:hover .card-image {
-                    transform: scale(1.05);
+                    transform: scale(1.08);
                 }
 
                 .region-badge {
@@ -123,19 +132,20 @@ class DestinoCard extends HTMLElement {
                     left: 15px;
                     z-index: 5;
                     color: white;
-                    padding: 0.45rem 1rem;
+                    padding: 0.48rem 1.1rem;
                     border-radius: 20px;
                     font-family: 'Plus Jakarta Sans', sans-serif;
-                    font-size: 0.7rem;
-                    font-weight: 700;
+                    font-size: 0.72rem;
+                    font-weight: 800;
                     text-transform: uppercase;
                     letter-spacing: 1px;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    backdrop-filter: blur(4px);
+                    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
                 }
 
                 .card-content {
-                    padding: 1.5rem;
+                    padding: 1.6rem;
                     flex-grow: 1;
                     display: flex;
                     flex-direction: column;
@@ -143,25 +153,34 @@ class DestinoCard extends HTMLElement {
 
                 .card-title {
                     font-family: 'Playfair Display', Georgia, serif;
-                    font-size: 1.45rem;
+                    font-size: 1.48rem;
                     font-weight: 700;
                     color: #1f2937;
                     margin-bottom: 0.6rem;
                     line-height: 1.25;
+                    transition: color 0.4s ease;
+                }
+
+                :host-context([data-theme="dark"]) .card-title {
+                    color: #f8fafc;
                 }
 
                 .card-description {
                     font-family: 'Plus Jakarta Sans', sans-serif;
-                    font-size: 0.9rem;
+                    font-size: 0.92rem;
                     color: #4b5563;
-                    line-height: 1.5;
-                    margin-bottom: 1.2rem;
+                    line-height: 1.55;
+                    margin-bottom: 1.4rem;
                     flex-grow: 1;
-                    /* Line clamp */
                     display: -webkit-box;
                     -webkit-line-clamp: 3;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
+                    transition: color 0.4s ease;
+                }
+
+                :host-context([data-theme="dark"]) .card-description {
+                    color: #cbd5e1;
                 }
 
                 .card-footer {
@@ -169,24 +188,29 @@ class DestinoCard extends HTMLElement {
                     justify-content: flex-end;
                     align-items: center;
                     margin-top: auto;
-                    padding-top: 1rem;
-                    border-top: 1px solid rgba(0, 0, 0, 0.05);
+                    padding-top: 1.1rem;
+                    border-top: 1px solid rgba(15, 23, 42, 0.08);
+                    transition: border-color 0.4s ease;
+                }
+
+                :host-context([data-theme="dark"]) .card-footer {
+                    border-top-color: rgba(255, 255, 255, 0.08);
                 }
 
                 .cta-button {
                     border: none;
-                    padding: 0.65rem 1.4rem;
+                    padding: 0.68rem 1.45rem;
                     border-radius: 25px;
                     font-family: 'Plus Jakarta Sans', sans-serif;
-                    font-size: 0.85rem;
-                    font-weight: 700;
+                    font-size: 0.82rem;
+                    font-weight: 800;
                     cursor: pointer;
                     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
                     text-transform: uppercase;
                     letter-spacing: 0.5px;
                     display: flex;
                     align-items: center;
-                    gap: 6px;
+                    gap: 8px;
                 }
 
                 .cta-button .icon {
@@ -194,74 +218,81 @@ class DestinoCard extends HTMLElement {
                     transition: transform 0.3s ease;
                 }
 
-                .cta-button:hover .icon {
-                    transform: translateX(3px);
+                .card:hover .cta-button .icon {
+                    transform: translateX(5px);
                 }
 
                 /* Colores por Región */
                 :host([region="Guanacaste"]) .region-badge {
-                    background: #e5b842;
+                    background: rgba(229, 184, 66, 0.92);
                     color: #1c150c;
                 }
                 :host([region="Guanacaste"]) .cta-button {
                     background: linear-gradient(135deg, #e5b842, #c69c36);
                     color: #1c150c;
-                    box-shadow: 0 4px 12px rgba(229, 184, 66, 0.25);
+                    box-shadow: 0 4px 14px rgba(229, 184, 66, 0.3);
                 }
                 :host([region="Guanacaste"]) .cta-button:hover {
-                    box-shadow: 0 6px 16px rgba(229, 184, 66, 0.4);
+                    box-shadow: 0 6px 18px rgba(229, 184, 66, 0.5);
                 }
 
                 :host([region="Caribe"]) .region-badge {
-                    background: #d97724;
+                    background: rgba(6, 182, 212, 0.92);
                     color: white;
                 }
                 :host([region="Caribe"]) .cta-button {
-                    background: linear-gradient(135deg, #d97724, #e65c00);
+                    background: linear-gradient(135deg, #06b6d4, #0891b2);
                     color: white;
-                    box-shadow: 0 4px 12px rgba(217, 119, 36, 0.25);
+                    box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
                 }
                 :host([region="Caribe"]) .cta-button:hover {
-                    box-shadow: 0 6px 16px rgba(217, 119, 36, 0.4);
+                    box-shadow: 0 6px 18px rgba(6, 182, 212, 0.5);
                 }
 
                 :host([region="Central"]) .region-badge {
-                    background: #2a9d8f;
+                    background: rgba(15, 118, 110, 0.92);
                     color: white;
                 }
                 :host([region="Central"]) .cta-button {
-                    background: linear-gradient(135deg, #2a9d8f, #2d6a4f);
+                    background: linear-gradient(135deg, #0f766e, #0d9488);
                     color: white;
-                    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.25);
+                    box-shadow: 0 4px 14px rgba(15, 118, 110, 0.3);
                 }
                 :host([region="Central"]) .cta-button:hover {
-                    box-shadow: 0 6px 16px rgba(42, 157, 143, 0.4);
+                    box-shadow: 0 6px 18px rgba(15, 118, 110, 0.5);
                 }
 
                 :host([region="Pacífico Sur"]) .region-badge {
-                    background: #3a86c8;
+                    background: rgba(2, 132, 199, 0.92);
                     color: white;
                 }
                 :host([region="Pacífico Sur"]) .cta-button {
-                    background: linear-gradient(135deg, #3a86c8, #0077b6);
+                    background: linear-gradient(135deg, #0284c7, #0369a1);
                     color: white;
-                    box-shadow: 0 4px 12px rgba(58, 134, 200, 0.25);
+                    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
                 }
                 :host([region="Pacífico Sur"]) .cta-button:hover {
-                    box-shadow: 0 6px 16px rgba(58, 134, 200, 0.4);
+                    box-shadow: 0 6px 18px rgba(2, 132, 199, 0.5);
                 }
 
                 @media (max-width: 768px) {
                     .image-container {
-                        height: 190px;
+                        height: 195px;
                     }
-
                     .card-title {
-                        font-size: 1.25rem;
+                        font-size: 1.3rem;
                     }
-
                     .card-description {
-                        font-size: 0.85rem;
+                        font-size: 0.88rem;
+                    }
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    :host {
+                        animation: none !important;
+                    }
+                    .card, .card-image, .cta-button .icon {
+                        transition: none !important;
                     }
                 }
             </style>
@@ -287,5 +318,4 @@ class DestinoCard extends HTMLElement {
     }
 }
 
-// Registrar el Custom Element
 customElements.define('destino-card', DestinoCard);

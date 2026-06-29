@@ -6,12 +6,12 @@
     "descripcion": "Tamarindo es uno de los destinos turísticos más populares de Costa Rica. Sus extensas playas de arena dorada, excelentes olas para practicar surf y hermosos atardeceres atraen visitantes de todo el mundo. También es ideal para disfrutar de la gastronomía local y actividades acuáticas.",
     "imagen_portada": "assets/img/tamarindo.jpg",
     "galeria": ["tam1.jpg", "tam2.jpg", "tam3.jpg"],
+    "audio": "assets/audio/tamarindo-guia.mp3",
     "video": "https://www.youtube.com/watch?v=tccoSjnxVDM",
     "actividades": ["Surf", "Pesca", "Kayak", "Paseos en bote"],
     "lat": 10.2993,
     "lng": -85.8371
   },
-
   {
     "id": "guana-02",
     "nombre": "Rincón de la Vieja",
@@ -19,12 +19,12 @@
     "descripcion": "El Parque Nacional Rincón de la Vieja es famoso por su actividad volcánica, senderos naturales, cataratas y aguas termales. Es un destino perfecto para quienes disfrutan del ecoturismo y la aventura en medio de la naturaleza.",
     "imagen_portada": "assets/img/rincon.jpg",
     "galeria": ["rin1.jpg", "rin2.jpg"],
+    "audio": "assets/audio/rincon-guia.mp3",
     "video": "https://www.youtube.com/watch?v=d5OAc5ckDUQ",
     "actividades": ["Senderismo", "Termales", "Observación de fauna"],
     "lat": 10.8305,
     "lng": -85.3241
   },
-
   {
     "id": "caribe-01",
     "nombre": "Cahuita",
@@ -32,12 +32,12 @@
     "descripcion": "Cahuita combina playas paradisíacas, arrecifes de coral y una gran biodiversidad. Su parque nacional protege numerosas especies de flora y fauna, convirtiéndolo en uno de los destinos más representativos del Caribe costarricense.",
     "imagen_portada": "assets/img/cahuita.jpg",
     "galeria": ["cahu1.jpg", "cahu2.jpg"],
+    "audio": "assets/audio/cahuita-guia.mp3",
     "video": "https://www.youtube.com/watch?v=IC1lfLEh960",
     "actividades": ["Snorkel", "Senderismo", "Fotografía"],
     "lat": 9.7369,
     "lng": -82.8411
   },
-
   {
     "id": "caribe-02",
     "nombre": "Puerto Viejo",
@@ -45,12 +45,12 @@
     "descripcion": "Puerto Viejo destaca por su cultura afrocaribeña, ambiente relajado y hermosas playas. Es un lugar ideal para practicar ciclismo, disfrutar de la gastronomía local y conocer la riqueza cultural de la costa caribeña.",
     "imagen_portada": "assets/img/pv.jpg",
     "galeria": ["pv1.jpg", "pv2.jpg"],
+    "audio": "assets/audio/puertoviejo-guia.mp3",
     "video": "https://www.youtube.com/watch?v=P5TI43juLdc",
     "actividades": ["Ciclismo", "Surf", "Gastronomía"],
     "lat": 9.6553,
     "lng": -82.7544
   },
-
   {
     "id": "cent-01",
     "nombre": "Poás",
@@ -58,12 +58,12 @@
     "descripcion": "El Volcán Poás alberga uno de los cráteres activos más impresionantes del mundo. Su fácil acceso y sus espectaculares vistas lo convierten en uno de los destinos más visitados de Costa Rica.",
     "imagen_portada": "assets/img/poas.jpg",
     "galeria": ["poas1.jpg", "poas2.jpg"],
+    "audio": "assets/audio/poas-guia.mp3",
     "video": "https://www.youtube.com/watch?v=vU9hTCLRbLs",
     "actividades": ["Observación", "Senderismo", "Fotografía"],
     "lat": 10.1981,
     "lng": -84.2307
   },
-
   {
     "id": "cent-02",
     "nombre": "Orosi",
@@ -71,12 +71,12 @@
     "descripcion": "El Valle de Orosi es conocido por su belleza natural, sus paisajes montañosos y su importancia histórica. Es un destino ideal para quienes buscan tranquilidad y contacto con la cultura costarricense.",
     "imagen_portada": "assets/img/orosi.jpg",
     "galeria": ["orosi1.jpg", "orosi2.jpg"],
+    "audio": "assets/audio/orosi-guia.mp3",
     "video": "https://www.youtube.com/watch?v=w7g2O5lZhqc",
     "actividades": ["Cultura", "Naturaleza", "Fotografía"],
     "lat": 9.7967,
     "lng": -83.8544
   },
-
   {
     "id": "sur-01",
     "nombre": "Manuel Antonio",
@@ -84,12 +84,12 @@
     "descripcion": "Manuel Antonio es famoso por combinar exuberante selva tropical con playas de arena blanca. Es uno de los parques nacionales más visitados del país gracias a su biodiversidad y paisajes únicos.",
     "imagen_portada": "assets/img/ma.jpg",
     "galeria": ["ma1.jpg", "ma2.jpg"],
+    "audio": "assets/audio/manuelantonio-guia.mp3",
     "video": "https://www.youtube.com/watch?v=H7EZIu00VKQ",
     "actividades": ["Playa", "Senderismo", "Observación de fauna"],
     "lat": 9.3894,
     "lng": -84.1471
   },
-
   {
     "id": "sur-02",
     "nombre": "Uvita",
@@ -97,6 +97,7 @@
     "descripcion": "Uvita es reconocida por la famosa formación natural conocida como Cola de la Ballena. Además, es un excelente lugar para observar ballenas, disfrutar de cataratas y explorar la naturaleza.",
     "imagen_portada": "assets/img/uvita.jpg",
     "galeria": ["uvita1.jpg", "uvita2.jpg"],
+    "audio": "assets/audio/uvita-guia.mp3",
     "video": "https://www.youtube.com/watch?v=YJaPneNbVpM",
     "actividades": ["Ballenas", "Cataratas", "Senderismo"],
     "lat": 9.1738,

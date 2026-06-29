@@ -14,7 +14,7 @@ class DestinoCard extends HTMLElement {
 
     // Callback cuando cambian los atributos
     attributeChangedCallback(name, oldVal, newVal) {
-        if (oldVal !== newVal) {
+        if (oldVal !== newVal && this.isConnected) {
             this.render();
         }
     }

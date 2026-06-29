@@ -7,9 +7,11 @@
     <title>Guía Turística Multimedia de Costa Rica</title>
 
     <link rel="stylesheet" href="css/global.css">
+    <link rel="icon" href="data:,">
 
     <!-- Custom Elements -->
     <script type="module" src="components/app-header.js"></script>
+    <script type="module" src="components/mapa-costa-rica.js"></script>
     <script type="module" src="components/destino-card.js"></script>
     <script type="module" src="components/destino-detalle.js"></script>
     <script type="module" src="components/galeria-imagenes.js"></script>
@@ -28,6 +30,8 @@
                 <h1>Descubre los Tesoros de Costa Rica</h1>
                 <p>Explora los destinos turísticos más hermosos y cautivadores del país</p>
             </div>
+
+            <mapa-costa-rica active-region="Guanacaste"></mapa-costa-rica>
 
             <div id="destinos-grid" class="destinos-grid">
 
@@ -59,6 +63,12 @@
 
         const detalleDestino =
             document.getElementById('detalle-destino');
+
+        const header =
+            document.querySelector('app-header');
+
+        const mapaCostaRica =
+            document.querySelector('mapa-costa-rica');
 
         // =========================
         // CARGAR JSON
@@ -180,18 +190,36 @@
         // CAMBIO DE REGIÓN
         // =========================
 
-        const header =
-            document.querySelector('app-header');
+        function seleccionarRegion(region) {
 
-        header.addEventListener(
+            if (!region) {
+                return;
+            }
+
+            regionActual =
+                region;
+
+            header.setAttribute(
+                'active-region',
+                regionActual
+            );
+
+            mapaCostaRica.setAttribute(
+                'active-region',
+                regionActual
+            );
+
+            mostrarDestinosPorRegion(
+                regionActual
+            );
+        }
+
+        document.addEventListener(
             'region-selected',
             (e) => {
 
-                regionActual =
-                    e.detail.region;
-
-                mostrarDestinosPorRegion(
-                    regionActual
+                seleccionarRegion(
+                    e.detail.region
                 );
             }
         );

@@ -1,320 +1,199 @@
-# Guía Turística Multimedia de Costa Rica
+# Guía Turística Multimedia de Costa Rica • Pura Vida
 
-Bienvenido a la **Guía Turística Multimedia de Costa Rica**, una aplicación web interactiva diseñada para explorar la riqueza natural, cultural y recreativa de diversas regiones de Costa Rica. La plataforma ofrece una experiencia inmersiva mediante el uso de tecnologías web nativas, integrando recursos fotográficos, mapas de ubicación y narración de voz dinámica.
-
----
-
-## Descripción General del Proyecto
-
-Esta plataforma es una aplicación web interactiva basada en **Web Components nativos** (sin dependencias de frameworks externos como React o Angular), diseñada para funcionar directamente en el navegador. La aplicación organiza los destinos turísticos costarricenses en cuatro regiones principales: **Guanacaste**, **Caribe**, **Central** y **Pacífico Sur**. 
-
-Cada región cuenta con un tema de diseño visual específico y adaptativo. Los usuarios pueden visualizar destinos turísticos representativos, consultar sus detalles, navegar por galerías fotográficas, escuchar una descripción narrada de viva voz generada en tiempo real y acceder a videos informativos.
+Bienvenido a la **Guía Turística Multimedia de Costa Rica**, una aplicación web interactiva de alto impacto visual y sonoro diseñada para explorar la riqueza natural, cultural y recreativa de las distintas regiones del país. La plataforma ofrece una experiencia inmersiva mediante el uso de tecnologías web nativas, integrando recursos fotográficos, cartografía vectorial interactiva por cantones, reproductores multimedia y síntesis de voz dinámica.
 
 ---
 
-## Objetivo
+## 📋 Descripción General del Proyecto
 
-El objetivo principal de este proyecto es implementar una plataforma turística interactiva de alto impacto visual y sonoro, aplicando estándares modernos de desarrollo web del lado del cliente. Se enfoca en el uso del **Shadow DOM**, **Custom Elements** y **Custom Events** para estructurar una aplicación modular, reutilizable y escalable que optimice el consumo de recursos multimedia y promueva la accesibilidad.
+Esta plataforma es una aplicación web interactiva basada en **Web Components nativos** (sin dependencias de frameworks externos como React, Vue o Angular), desarrollada para funcionar íntegramente en el navegador. La aplicación organiza los destinos turísticos costarricenses en cuatro regiones principales: **Guanacaste (Pacífico Norte)**, **Caribe**, **Valle Central** y **Pacífico Sur (Pacífico Central y Sur)**.
 
----
-
-## Funcionalidades
-
-✔ Explorar destinos turísticos
-✔ Filtrar por región
-✔ Visualizar detalles completos
-✔ Galería de imágenes
-✔ Narración mediante voz
-✔ Visualización de ubicación
-✔ Acceso a videos turísticos
-✔ Diseño responsivo
+Cada región cuenta con un tema de diseño visual específico y adaptativo. Los usuarios pueden explorar destinos turísticos representativos, consultar sus detalles en una ventana modal interactiva, navegar por galerías fotográficas, escuchar descripciones narradas de viva voz y acceder a videos informativos.
 
 ---
 
-## Características Principales
+## 🎯 Objetivo General y Específicos
 
-*   **Modularidad con Web Components:** Estructuración limpia basada en 5 Custom Elements reutilizables y autocontenidos.
-*   **Encapsulación Completa (Shadow DOM):** Aislamiento total de estilos CSS y marcado HTML dentro de cada componente para prevenir colisiones globales.
-*   **Temas Dinámicos y Regionales:** Adaptación en tiempo real del esquema de color y variables CSS de la aplicación dependiendo de la región seleccionada.
-*   **Carga Dinámica de Datos:** Consumo asíncrono de destinos desde un archivo centralizado en formato JSON (`destinos.json`).
-*   **Narración por Voz Integrada:** Soporte nativo para lectura en voz alta (Text-to-Speech) de las descripciones turísticas a través de la API Web Speech del navegador.
-*   **Galerías Interactivas:** Carruseles fotográficos autogestionados con soporte para controles táctiles, visuales y navegación por teclado.
-*   **Diseño 100% Responsivo:** Interfaz adaptada a dispositivos móviles, tabletas y computadoras de escritorio usando CSS Grid y Flexbox.
-*   **Información Geográfica y Multimedia:** Inclusión de coordenadas geográficas de los destinos y enlaces a videos promocionales en YouTube.
+### Objetivo General
+Desarrollar una aplicación web multimedia interactiva para explorar los destinos turísticos de Costa Rica, implementada íntegramente con Web Components nativos, sin frameworks externos, e integrando datos estructurados en JSON, audio y video.
+
+### Objetivos Específicos
+* **Diseño e Interfaz**: Aplicar principios de diseño de interfaces, usabilidad y accesibilidad (`prefers-reduced-motion`) en la construcción de una experiencia de usuario coherente, fluida y visualmente atractiva ("Pura Vida").
+* **Integración Multimedia**: Integrar recursos multimedia (imágenes, audio-guía y video) de forma orgánica en la interfaz.
+* **Gestión de Datos**: Administrar los datos de los destinos turísticos mediante archivos JSON cargados dinámicamente (`fetch`).
+* **Arquitectura Modular**: Construir la aplicación utilizando componentes reutilizables autocontenidos (Shadow DOM) y comunicación desacoplada mediante Custom Events.
 
 ---
 
-## Tecnologías Utilizadas
+## 🌟 Funcionalidades y Características Principales
 
-La aplicación ha sido desarrollada utilizando estándares web modernos y nativos:
+✔ **Mapa Turístico Real de Costa Rica**: Mapa vectorial interactivo construido con la cartografía oficial de los 265 cantones de Costa Rica, agrupados por regiones con efectos ambientales de luz fluida.  
+✔ **Navegación e Interacción Instantánea**: Selección de regiones desde el header o el mapa interactivo con respuesta inmediata (0ms de lag de re-renderizado).  
+✔ **Modo Oscuro Tropical Nocturno**: Selector de tema Claro (Arena & Selva) y Oscuro (Noche Tropical) con persistencia en `localStorage`.  
+✔ **Fondo Mágico Animado por Scroll**: Canvas dinámico de orbes luminosos que mutan de forma y se desplazan en paralaje 3D conforme el usuario navega.  
+✔ **Galería de Imágenes Interactivas**: Carrusel fotográfico con controles de navegación anterior/siguiente e indicadores visuales.  
+✔ **Audio-Guía Narrada**: Reproductor de audio nativo y sintetizador por voz para escuchar la descripción de cada destino.  
+✔ **Diseño 100% Responsivo y Accesible**: Adaptación fluida a móviles, tabletas y computadoras de escritorio.  
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+La aplicación ha sido desarrollada utilizando estrictamente los estándares web modernos exigidos por el curso:
 
 | Tecnología | Descripción y Uso en el Proyecto |
 | :--- | :--- |
-| **HTML5** | Definición del esqueleto semántico del sitio y declaración de los contenedores para Custom Elements. |
-| **CSS3 (Custom Properties)** | Definición de tokens de diseño, transiciones, animaciones avanzadas y media queries para el diseño responsivo. |
-| **JavaScript ES6+** | Lógica de negocio, consumo de datos asíncronos (`Fetch API`), módulos nativos (`ES Modules`) y registro de componentes. |
-| **Web Components API** | Creación y registro de Custom Elements a través de `customElements.define` y el ciclo de vida del elemento. |
-| **Shadow DOM v1** | Encapsulamiento del DOM en modo `open` para aislar estilos CSS y estructura interna en cada componente. |
-| **Custom Events API** | Mecanismo de comunicación desacoplado entre componentes y la aplicación principal para control de eventos. |
-| **Web Speech API** | Utilización de `speechSynthesis` y `SpeechSynthesisUtterance` para la generación local de la narración de audio. |
+| **HTML5** | Estructuración semántica y contenedores para Custom Elements. |
+| **CSS3 (Custom Properties)** | Tokens de diseño, transiciones hardware, animaciones de paralaje y media queries responsivas. |
+| **JavaScript (ES6+)** | Lógica de negocio, consumo asíncrono (`Fetch API`) y módulos nativos (`ES Modules`). |
+| **Web Components API** | Creación de componentes personalizados reutilizables mediante `customElements.define`. |
+| **Shadow DOM v1** | Encapsulación completa en modo `open` para aislar estilos CSS y marcado HTML. |
+| **Custom Events API** | Comunicación desacoplada entre componentes y la aplicación (`region-selected`, `destino-selected`, `destino-cerrado`). |
+| **APIs Multimedia Nativas** | Integración de `<audio>`, `<video>` y la API Web Speech (`speechSynthesis`) para audio-guías. |
 
 ---
 
-## Arquitectura del Proyecto
+## 🏗️ Arquitectura del Proyecto y Flujo de Datos
 
-El proyecto implementa una arquitectura basada en componentes desacoplados coordinados por un controlador central (`index.html`). Los datos residen de forma externa en un JSON de destinos. La comunicación se realiza de forma ascendente mediante **Custom Events** y de forma descendente mediante la actualización de **Atributos Observados** y métodos expuestos por los componentes.
-
-### Diagrama de Componentes y Flujo de Datos
+El proyecto implementa una arquitectura desacoplada coordinada por un controlador central en `index.html`. La comunicación entre componentes utiliza **Custom Events** (con `bubbles: true, composed: true`) y la actualización de **Atributos Observados** (`observedAttributes`).
 
 ```mermaid
 graph TD
-    A[index.html (Controlador Principal)] --> B[app-header (Selector de Regiones)]
-    A --> C[destino-card Grid (Muestrario de Tarjetas)]
-    A --> D[destino-detalle (Modal Detallado)]
+    A[index.html - Controlador Principal] --> B[app-header - Navegación]
+    A --> C[mapa-costa-rica - Cartografía Vectorial]
+    A --> D[destino-card Grid - Catálogo]
+    A --> E[destino-detalle - Modal Multimedia]
     
-    subgraph Data Flow
+    subgraph Data Layer
         F[(destinos.json)] -- Fetch API --> A
     end
 
-    subgraph Event Flow
-        B -- "Emite 'region-selected'" --> A
-        C -- "Emite 'destino-selected'" --> A
-        D -- "Emite 'destino-cerrado'" --> A
+    subgraph Custom Events Flow
+        B -- "emite region-selected" --> A
+        C -- "emite region-selected" --> A
+        D -- "emite destino-selected" --> A
+        E -- "emite destino-cerrado" --> A
     end
 
-    subgraph Modal Internals
-        D --> E[galeria-imagenes (Carrusel)]
-        D --> G[audio-guia (Narrador de Voz)]
+    subgraph Componentes Internos del Modal
+        E --> G[galeria-imagenes - Carrusel Fotográfico]
+        E --> H[audio-guia - Narrador por Voz]
     end
-```
-
-#### Estructura de Flujo del Sistema (Modo Texto)
-
-```text
-index.html
-      │
-      ▼
-destinos.json
-      │
-      ▼
- app-header
-      │
-      ▼
- destino-card
-      │
-      ▼
- destino-detalle
-     ├────────► galeria-imagenes
-     ├────────► audio-guia
-     └────────► Video YouTube
 ```
 
 ---
 
-## Estructura Completa del Proyecto
+## 📂 Estructura Completa de Archivos
 
-A continuación se detalla la distribución de los archivos dentro del repositorio:
+Estructura de archivos conforme a las especificaciones del proyecto:
 
 ```text
 GuiaTuristica/
-├── index.html                  # Controlador central y maquetación general de la página
-├── CREDITOS.md                 # Atribuciones y referencias de recursos utilizados
-├── README.md                   # Documentación final de entrega del proyecto
-├── assets/                     # Carpeta contenedora de recursos estáticos del proyecto
-│   ├── audio/                  # Archivos de audio (si aplica)
-│   ├── img/                    # Banco de imágenes locales utilizadas para los destinos
-│   └── video/                  # Recursos de video local (si aplica)
-├── components/                 # Definición JavaScript de los Custom Elements
-│   ├── app-header.js           # Navegación por regiones y manejo de variables de temas
-│   ├── audio-guia.js           # Lector de voz basado en Web Speech API
-│   ├── destino-card.js         # Tarjeta de vista previa para el catálogo de destinos
-│   ├── destino-detalle.js      # Modal contenedor del desglose de información turística
-│   └── galeria-imagenes.js     # Galería de fotos con soporte de navegación
-├── css/                        # Estilos globales y configuraciones iniciales
-│   └── global.css              # Reglas de estilo globales, reset y fuentes tipográficas
-└── data/                       # Almacenamiento de datos del aplicativo
-    └── destinos.json           # Base de datos JSON de destinos turísticos
+├── index.html                  # Controlador principal de la aplicación y maquetación general
+├── CREDITOS.md                 # Atribuciones de imágenes, audios y fuentes utilizadas
+├── README.md                   # Documentación técnica del proyecto
+├── assets/                     # Recursos estáticos
+│   ├── audio/                  # Archivos de audio locales
+│   ├── img/                    # Fotografías de los destinos turísticos
+│   └── cantones_real.svg       # Cartografía vectorial oficial de Costa Rica
+├── components/                 # Definición de Custom Elements (Shadow DOM)
+│   ├── app-header.js           # Header de navegación, selector de tema y regiones
+│   ├── mapa-costa-rica.js      # Mapa interactivo de 265 cantones por región
+│   ├── destino-card.js         # Tarjeta de vista previa en el catálogo
+│   ├── destino-detalle.js      # Modal contenedor de información y recursos multimedia
+│   ├── galeria-imagenes.js     # Carrusel fotográfico con controles
+│   └── audio-guia.js           # Reproductor de audio y sintetizador por voz
+├── css/                        # Estilos globales y tokens del sistema de diseño
+│   └── global.css              # Reset, fuentes, fondo mágico por scroll y variables CSS
+└── data/                       # Almacenamiento estructurado
+    └── destinos.json           # Base de datos JSON con la información de los destinos
 ```
 
 ---
 
-## Explicación de cada Web Component
+## 🧩 Explicación de los Custom Elements
 
-La aplicación se compone de cinco componentes independientes basados en la clase nativa `HTMLElement`. Cada uno posee una responsabilidad específica:
+La aplicación se compone de **6 Custom Elements** nativos autocontenidos:
 
-### 1. `<app-header>`
-*   **Archivo:** `components/app-header.js`
-*   **Propósito:** Proporcionar la barra de navegación del sitio, permitiendo al usuario cambiar de región turística. Adicionalmente, posee la configuración de los temas visuales regionales e inyecta dinámicamente propiedades CSS personalizadas (`--primary-color`, `--bg-color`, `--text-color`, `--accent`) en el elemento `:host`.
-*   **Atributos Observados:** `active-region`.
-*   **Eventos Emitidos:** `region-selected` al cambiar la pestaña activa.
+### 1. `<app-header>` ([components/app-header.js](file:///c:/projects/MultimediosFinal/GuiaTuristica/components/app-header.js))
+* **Propósito**: Barra de navegación superior con el distintivo "Costa Rica Pura Vida", menú de selección regional y botón para conmutar el Modo Oscuro / Claro.
+* **Atributos Observados**: `active-region`.
+* **Eventos Emitidos**: `region-selected`.
 
-### 2. `<destino-card>`
-*   **Archivo:** `components/destino-card.js`
-*   **Propósito:** Representar de manera gráfica un destino individual en el catálogo. Incluye una imagen de portada con efecto hover de escala, un distintivo de la región y un botón de llamada a la acción ("Explorar").
-*   **Atributos Observados:** `destino-id`, `nombre`, `region`, `imagen`, `descripcion`.
-*   **Eventos Emitidos:** `destino-selected` al presionar la tarjeta, adjuntando la información correspondiente.
+### 2. `<mapa-costa-rica>` ([components/mapa-costa-rica.js](file:///c:/projects/MultimediosFinal/GuiaTuristica/components/mapa-costa-rica.js))
+* **Propósito**: Renderizado interactivo del mapa vectorial real de Costa Rica agrupando 265 vectores de cantones en las 4 regiones turísticas del proyecto. Cuenta con orbes de luz ambiental de fondo que cambian dinámicamente según la región seleccionada.
+* **Atributos Observados**: `active-region`.
+* **Eventos Emitidos**: `region-selected`.
 
-### 3. `<destino-detalle>`
-*   **Archivo:** `components/destino-detalle.js`
-*   **Propósito:** Actuar como ventana modal superpuesta para el desglose detallado de un destino. Incorpora secciones de información textual (descripción y actividades), la integración de los componentes de audio y galería, datos de latitud y longitud, y un reproductor de video de YouTube.
-*   **Atributos Observados:** `destino-id`, `visible`, `region`.
-*   **Eventos Emitidos:** `destino-cerrado` cuando se cierra la ventana modal.
+### 3. `<destino-card>` ([components/destino-card.js](file:///c:/projects/MultimediosFinal/GuiaTuristica/components/destino-card.js))
+* **Propósito**: Tarjeta de presentación de un destino en el catálogo con imagen de portada, badge regional, título y micro-interacciones al pasar el cursor.
+* **Atributos Observados**: `destino-id`, `nombre`, `region`, `imagen`.
+* **Eventos Emitidos**: `destino-selected`.
 
-### 4. `<galeria-imagenes>`
-*   **Archivo:** `components/galeria-imagenes.js`
-*   **Propósito:** Implementar una galería de imágenes interactiva en formato carrusel dentro del modal de detalle. Cuenta con botones físicos para retroceder o avanzar de imagen, indicadores de puntos para ir a una imagen directamente, transiciones suaves de opacidad y soporte de accesibilidad mediante el teclado.
-*   **Atributos Observados:** `imagenes` (recibe un array serializado en formato JSON), `titulo`.
+### 4. `<destino-detalle>` ([components/destino-detalle.js](file:///c:/projects/MultimediosFinal/GuiaTuristica/components/destino-detalle.js))
+* **Propósito**: Ventana modal interactiva que muestra el desglose del destino: descripción, badges de actividades, coordenadas geográficas, botón de video y contenedor para la galería y audio-guía.
+* **Atributos Observados**: `destino-id`, `visible`, `region`.
+* **Eventos Emitidos**: `destino-cerrado`.
 
-### 5. `<audio-guia>`
-*   **Archivo:** `components/audio-guia.js`
-*   **Propósito:** Este componente utiliza la API nativa SpeechSynthesis del navegador para convertir automáticamente la descripción textual del destino en una narración de voz, proporcionando una experiencia multimedia accesible sin depender de archivos de audio pregrabados. Presenta controles interactivos de reproducción ("Reproducir" y "Detener").
-*   **Atributos Observados:** `texto`, `titulo`, `descripcion`, `region`.
+### 5. `<galeria-imagenes>` ([components/galeria-imagenes.js](file:///c:/projects/MultimediosFinal/GuiaTuristica/components/galeria-imagenes.js))
+* **Propósito**: Carrusel de fotos dentro del modal con botones de navegación (anterior/siguiente), puntos indicadores e integración accesible.
+* **Atributos Observados**: `imagenes` (JSON array), `titulo`.
 
----
-
-## Explicación de los Custom Events
-
-Para lograr el desacoplamiento de componentes, se implementan eventos personalizados que notifican cambios de estado importantes. Todos usan las banderas `bubbles: true` y `composed: true` para poder propagarse y atravesar las barreras del Shadow DOM hasta llegar al archivo `index.html`.
-
-| Evento | Emitido por | Escuchado por | Payload (`detail`) | Propósito |
-| :--- | :--- | :--- | :--- | :--- |
-| **`region-selected`** | `<app-header>` | `index.html` | `{ region: string, theme: Object }` | Notificar que el usuario ha seleccionado otra región geográfica. El controlador principal filtra el grid de destinos e inyecta la nueva selección. |
-| **`destino-selected`** | `<destino-card>` | `index.html` | `{ destino: Object }` | Enviar los datos del destino sobre el cual se hizo clic. Permite al controlador cargar dicha información en el modal de detalle y mostrarlo. |
-| **`destino-cerrado`** | `<destino-detalle>` | `index.html` | Ninguno | Comunicar que la ventana de detalle se ha cerrado para restablecer el foco visual y ocultar el modal de forma lógica. |
+### 6. `<audio-guia>` ([components/audio-guia.js](file:///c:/projects/MultimediosFinal/GuiaTuristica/components/audio-guia.js))
+* **Propósito**: Reproductor de audio que utiliza el elemento nativo `<audio>` y la API SpeechSynthesis para la narración por voz en tiempo real de los destinos.
+* **Atributos Observados**: `src`, `texto`, `titulo`, `descripcion`, `region`.
 
 ---
 
-## Integración Multimedia
+## 🚀 Guía de Instalación y Ejecución Local
 
-La aplicación destaca por su completa integración de recursos multimedia y de accesibilidad:
+Dado que la aplicación utiliza `ES Modules` y realiza peticiones `fetch()` asíncronas para cargar `data/destinos.json`, debe ejecutarse a través de un servidor web local (para cumplir con las políticas de origen CORS del navegador).
 
-1.  **Imágenes y Galería:** Uso de imágenes optimizadas de portada y una galería de múltiples imágenes para cada sitio turístico, desplegadas mediante el componente `<galeria-imagenes>` con soporte para navegación interactiva (botones, indicadores y flechas del teclado).
-2.  **Narración por Voz (Audio-Guía):** En lugar de depender de pesados archivos de audio pre-grabados, el componente `<audio-guia>` realiza una síntesis de voz digital local usando la API nativa de JavaScript `speechSynthesis` en idioma español (`es-ES`).
-3.  **Videos de YouTube:** Los destinos configurados con URL de video presentan un botón interactivo dentro de su modal. Al presionarlo, el sistema ejecuta una apertura segura en una nueva pestaña del navegador hacia el video promocional del sitio.
+### Opción A: Usar Live Server en VS Code (Recomendado)
+1. Abra la carpeta `GuiaTuristica/` en **Visual Studio Code**.
+2. Instale la extensión **Live Server** (creada por *Ritwick Dey*).
+3. Abra el archivo `index.html`, haga clic derecho y seleccione **"Open with Live Server"**.
+4. La aplicación se abrirá en `http://127.0.0.1:5500`.
 
----
-
-## Guía de Instalación
-
-El proyecto no requiere de gestores de dependencias como npm o yarn ni procesos de compilación, facilitando su puesta en marcha directa:
-
-1.  **Descargar el Repositorio:**
-    Clone el repositorio de GitHub en su máquina local:
-    ```bash
-    git clone https://github.com/felizondogranados-bot/GuiaTuristica.git
-    ```
-2.  **Abrir el Directorio:**
-    Abra la carpeta descargada con su editor de código preferido (se recomienda **Visual Studio Code**).
+### Opción B: Usar Servidor Local con Python
+Abra la terminal en el directorio del proyecto y ejecute:
+```bash
+python -m http.server 8000
+```
+Luego ingrese en su navegador a `http://localhost:8000`.
 
 ---
 
-## Cómo ejecutar el proyecto utilizando Live Server
+## 📝 Estructura del JSON de Destinos
 
-Debido a que el navegador restringe las solicitudes HTTP asíncronas para archivos locales (política CORS al cargar `data/destinos.json` usando `file://`), es necesario servir el proyecto mediante un servidor web local.
-
-**Pasos para ejecutar con Live Server en VS Code:**
-
-1.  Vaya a la sección de **Extensiones** en VS Code (`Ctrl+Shift+X` o `Cmd+Shift+X` en macOS).
-2.  Busque e instale la extensión **Live Server** creada por *Ritwick Dey*.
-3.  Abra el archivo [index.html](file:///c:/Users/feliz/OneDrive/Documentos/GitHub/GuiaTuristica/index.html) de la aplicación.
-4.  Haga clic derecho en cualquier sección de edición del archivo HTML y seleccione **"Open with Live Server"** (o presione el botón **"Go Live"** en la barra de estado inferior derecha de VS Code).
-5.  El navegador se abrirá automáticamente en la dirección por defecto: `http://127.0.0.1:5500/index.html`.
-
----
-
-## Cómo agregar nuevos destinos al JSON
-
-Para extender la base de datos de destinos turísticos de la guía, simplemente debe editar el archivo [destinos.json](file:///c:/Users/feliz/OneDrive/Documentos/GitHub/GuiaTuristica/data/destinos.json) ubicado en la ruta `data/`.
-
-### Estructura de un Objeto de Destino
-
-Cada elemento de la lista debe respetar la siguiente estructura de atributos:
+Para agregar o modificar destinos, edite el archivo `data/destinos.json` manteniendo el esquema exacto:
 
 ```json
 {
-  "id": "identificador-unico",
-  "nombre": "Nombre del Destino Turístico",
-  "region": "Nombre de la Región (Guanacaste / Caribe / Central / Pacífico Sur)",
-  "descripcion": "Texto descriptivo detallado del lugar. Será leído en voz alta por el componente de audio.",
-  "imagen_portada": "Ruta de la imagen de portada, ej: assets/img/nombre_archivo.jpg",
-  "galeria": [
-    "imagen_galeria_1.jpg",
-    "imagen_galeria_2.jpg"
-  ],
-  "video": "URL completa del video promocional de YouTube",
-  "actividades": [
-    "Actividad 1",
-    "Actividad 2",
-    "Actividad 3"
-  ],
-  "lat": 9.99999,
-  "lng": -84.99999
+  "id": "caribe-01",
+  "nombre": "Cahuita",
+  "region": "Caribe",
+  "descripcion": "Cahuita combina playas paradisíacas, arrecifes de coral y una gran biodiversidad...",
+  "imagen_portada": "assets/img/cahuita.jpg",
+  "galeria": ["cahu1.jpg", "cahu2.jpg"],
+  "audio": "assets/audio/cahuita-guia.mp3",
+  "video": "https://www.youtube.com/watch?v=IC1lfLEh960",
+  "actividades": ["Snorkel", "Senderismo", "Fotografía"],
+  "lat": 9.7369,
+  "lng": -82.8411
 }
 ```
 
-> [!IMPORTANT]
-> El campo `region` debe coincidir exactamente con una de las cuatro regiones soportadas por el sistema (`Guanacaste`, `Caribe`, `Central`, `Pacífico Sur`) para que los estilos temáticos se apliquen correctamente y el destino aparezca en la pestaña indicada.
-
 ---
 
-## Diseño Responsivo
+## 👥 Información Académica y Créditos
 
-La interfaz está construida bajo los conceptos de desarrollo móvil primero (*Mobile First*) y diseño adaptativo:
+* **Institución**: Universidad de Costa Rica (UCR)
+* **Carrera**: Informática Empresarial (Sedes Regionales - Recinto de Liberia)
+* **Curso**: IF7102 - Multimedios (I Ciclo 2026)
+* **Docente**: Lic. Alonso Chavarría Cubero
+* **Integrantes**:
+  * Steven Rodríguez Chacón
+  * Francela Elizondo Granados
 
-*   **Grid de Destinos:** Usa una rejilla CSS flexible con la propiedad `grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))`, lo que reordena las tarjetas automáticamente según el ancho útil.
-*   **Media Queries Adaptativas:**
-    *   **Hasta 1024px (Tabletas en Horizontal):** Ajuste de espaciados y reducción de los márgenes globales de visualización.
-    *   **Hasta 768px (Tabletas/Móviles en Vertical):** Reestructuración del encabezado (los botones de navegación se centran y colapsan en filas) y conversión de la vista de dos columnas del modal detalle en una sola columna vertical.
-    *   **Hasta 480px (Móviles pequeños):** Ajuste en el tamaño de las fuentes principales (como el título del catálogo que pasa de `3.2rem` a `1.6rem`) para garantizar una lectura cómoda sin desbordamientos de pantalla.
-
----
-
-##  Capturas de Pantalla
-
-*(A continuación se presentan marcadores reservados para incorporar imágenes y capturas de pantalla de la interfaz final del proyecto).*
-
-### 1. Vista de Catálogo de Destinos (Página de Inicio)
-![Vista Principal de la Guía Turística](assets/screenshots/vista-principal.png)
-*Descripción: Captura de pantalla que ilustra la barra superior con el selector de regiones activas y la visualización de la cuadrícula con las tarjetas turísticas.*
-
-### 2. Modal de Detalle Multimedia (Destino Seleccionado)
-![Vista del Detalle del Destino](assets/screenshots/vista-detalle.png)
-*Descripción: Despliegue de la ventana modal informativa mostrando la portada regional, descripción del sitio, actividades, controles de la audio-guía con voz y la galería fotográfica.*
-
-### 3. Visualización en Dispositivos Móviles (Diseño Responsivo)
-![Diseño Responsivo en Móvil](assets/screenshots/vista-movil.png)
-*Descripción: Captura en resolución móvil mostrando la adaptabilidad del encabezado de navegación por región y el colapso vertical del grid de tarjetas.*
-
----
-
-## Integrantes
-
-La siguiente tabla detalla la información de los autores que participaron en el diseño, desarrollo e implementación del presente proyecto:
-
-| Nombre Completo | Carné / Identificación | Correo Electrónico | Contribución en el Proyecto |
-| :--- | :--- | :--- | :--- |
-| Steven Rodríguez Chacón | `[Completar Carné]` | `[Completar Correo]` | Desarrollo de Web Components, Estilos y Lógica |
-| Francela Elizondo Granados | `[Completar Carné]` | felizondogranados@gmail.com | Desarrollo de Web Components, Estilos y Lógica |
-
----
-
-## Información Académica y del Curso
-
-*   **Institución:** Universidad de Costa Rica
-*   **Carrera:** Carrera de Informática Empresarial
-*   **Sede:** Sede Regional de Guanacaste
-*   **Curso:** Curso IF7102 - Multimedios
-*   **Profesor:** Lic. Alonso Chavarría Cubero
-*   **Ciclo Lectivo:** [Ciclo Lectivo y Año, ej: I Ciclo 2026]
-
----
-
-## Créditos y Atribuciones
-
-Los recursos multimedia, imágenes libres de regalías de Pexels/Unsplash, herramientas de bocetado y diseño utilizadas para conceptualizar este proyecto se encuentran detallados de forma explícita en el archivo adjunto [CREDITOS.md](file:///c:/Users/feliz/OneDrive/Documentos/GitHub/GuiaTuristica/CREDITOS.md).
-
----
-
-## Licencia
-
-Este proyecto ha sido desarrollado con **fines académicos** y formativos para el curso IF7102 Multimedios de la Universidad de Costa Rica. Su distribución y uso se rigen por las políticas de propiedad intelectual y ética académica de la institución educativa.
+*Para más detalles sobre las licencias de imágenes y recursos multimedia utilizados, consulte el archivo [CREDITOS.md](file:///c:/projects/MultimediosFinal/GuiaTuristica/CREDITOS.md).*
